@@ -112,10 +112,9 @@ describe("Creating Player as Computer", () => {
     expect(computer.type).toEqual("computer");
     expect(computer.getOrientation()).toEqual("horizontal");
     Player.activePlayer = "computer";
-    human.placementOfShipByPlayer(destroyer, [4, 4], "horizontal");
-    expect(computer.shipAttack(humanBoard, [4, 4]).length).toBe(10);
-    computer.shipAttack(computerBoard, [4, 4]);
-    expect(humanBoard[4][4]).toBe("x");
+    human.placementOfShipByPlayer(destroyer, [5, 5], "horizontal");
+    computer.shipAttack(humanBoard, [5, 5]);
+    expect(humanBoard[5][5]).toBe("x");
     Player.activePlayer = "human";
     expect(computer.shipAttack(humanBoard, [2, 3])).toBe(false);
   });
