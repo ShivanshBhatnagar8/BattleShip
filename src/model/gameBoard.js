@@ -67,8 +67,6 @@ class GameBoard {
       ([a, b]) => (this.board[a][b] = selectedShip.name)
     );
 
-    console.log(selectedShip.isPlaced);
-    console.log(selectedShip.placedArray);
     return selectedShip.placedArray;
   }
   placeShips(ship, coordinates, orientation) {
