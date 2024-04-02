@@ -3,6 +3,7 @@ import { GameBoard } from "./gameBoard";
 class Player {
   playerBoard = new GameBoard(10, 10);
   static activePlayer = "human";
+  #uniqueCoordinateSet = new Set();
   constructor(type) {
     this.type = type;
   }
@@ -49,19 +50,39 @@ class Player {
     if (Player.activePlayer === this.type) {
       //this.switchPlayerTurn();
       this.type === "computer"
-        ? (coord = [
-            Math.floor(Math.random() * 8),
-            Math.floor(Math.random() * 8),
-          ])
+        ? //(coord = [
+          //     Math.floor(Math.random() * 8),
+          //     Math.floor(Math.random() * 8),
+          //   ])
+          (coord = this.#generateUniqueCoordinates())
         : coord;
       const [x, y] = coord;
       if (board[x][y] !== null && board[x][y] !== "x") {
         board[x][y] = "x";
       }
-
-      return board;
+      if (Player.activePlayer === "computer") {
+        return coord;
+      } else {
+        return board;
+      }
     }
     return false;
+  }
+  #generateUniqueCoordinates() {
+    let x, y, coordinates;
+    x = Math.floor(Math.random() * 10);
+    y = Math.floor(Math.random() * 10);
+    coordinates = [x, y];
+
+    while (this.#uniqueCoordinateSet.has(JSON.stringify(coordinates))) {
+      x = Math.floor(Math.random() * 10);
+      y = Math.floor(Math.random() * 10);
+      coordinates = [x, y];
+    }
+
+    this.#uniqueCoordinateSet.add(JSON.stringify(coordinates));
+
+    return coordinates;
   }
 }
 export { Player };
