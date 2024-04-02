@@ -111,66 +111,70 @@ function renderShipOnGridByComputer(ship) {
   });
 }
 
-function humanAttack(board, grids) {
+function humanAttack(board, grids, box) {
   grids.forEach((el) => {
-    if (
-      el.style.backgroundColor !== "red" &&
-      el.style.backgroundColor !== "blue"
-    ) {
-      el.addEventListener("click", function () {
-        console.log("hello");
-        const x = el.getAttribute("data-x");
-        const y = el.getAttribute("data-y");
-        if (Player.activePlayer === "human") {
-          const result = human.shipAttack(board, [Number(x), Number(y)]);
-          console.log(x, y);
-          console.log(result);
-          console.log(Player.activePlayer);
-          if (result && result[Number(x)][Number(y)] !== null) {
-            console.log(result[Number(x)][Number(y)]);
-            el.style.backgroundColor = "red";
-            Player.switchPlayerTurn();
-            attackLogic();
-          } else {
-            el.style.backgroundColor = "blue";
-            Player.switchPlayerTurn();
-            attackLogic();
-          }
-          console.log(Player.activePlayer);
+    console.log(el.style.backgroundColor);
+    el.addEventListener("click", function () {
+      console.log("hello");
+      const x = el.getAttribute("data-x");
+      const y = el.getAttribute("data-y");
+      const cell = document.querySelector(
+        `.${box}[data-x="${x}"][data-y="${y}"]`
+      );
+      if (
+        Player.activePlayer === "human" &&
+        cell.style.backgroundColor !== "red" &&
+        cell.style.backgroundColor !== "blue"
+      ) {
+        const result = human.shipAttack(board, [Number(x), Number(y)]);
+        console.log(x, y);
+        console.log("it run");
+        console.log(result);
+        console.log(Player.activePlayer);
+        if (result && result[Number(x)][Number(y)] !== null) {
+          console.log(result[Number(x)][Number(y)]);
+          el.style.backgroundColor = "red";
+          Player.switchPlayerTurn();
+          attackLogic();
+        } else {
+          el.style.backgroundColor = "blue";
+          Player.switchPlayerTurn();
+          attackLogic();
         }
-      });
-    }
+        console.log(Player.activePlayer);
+      }
+    });
   });
 }
 
 function computerAttack(board, grids, box) {
   if (Player.activePlayer === "computer") {
     const result = computer.shipAttack(board);
-    const x = Math.floor(Math.random() * 8);
-    const y = Math.floor(Math.random() * 8);
+    console.log(result);
+    const [x, y] = result;
     const cell = document.querySelector(
       `.${box}[data-x="${x}"][data-y="${y}"]`
     );
-    if (cell.backgroundColor !== "red" && cell.backgroundColor !== "blue") {
-      if (result[x][y] === "x") {
-        console.log(result);
-        console.log(result[x][y]);
-        result[x][y] = "x";
-        cell.style.backgroundColor = "red";
-      } else if (result[x][y] === null) {
-        console.log(result[x][y]);
-        cell.style.backgroundColor = "blue";
-      }
-      Player.switchPlayerTurn();
+    console.log("computer run");
+    if (board[x][y] === "x") {
+      cell.style.backgroundColor = "red";
+      console.log(cell.getAttribute("data-x"));
+      console.log(cell.getAttribute("data-y"));
+    } else {
+      cell.style.backgroundColor = "blue";
+      console.log(cell.getAttribute("data-x"));
+      console.log(cell.getAttribute("data-y"));
     }
+    console.log(board);
   }
+  Player.switchPlayerTurn();
 }
 
 function attackLogic() {
   const userGrids = getPlayerGrid();
   const computerGrids = getComputerGrid();
   if (Player.activePlayer === "human") {
-    humanAttack(computer.playerBoard.board, computerGrids);
+    humanAttack(computer.playerBoard.board, computerGrids, "computer-box");
     //console.log(Player.activePlayer);
     //Player.switchPlayerTurn();
   } else {
