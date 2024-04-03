@@ -15,11 +15,6 @@ function getWinnerName() {
   return winnerName;
 }
 
-function getActivePlayer() {
-  const activePlayer = document.querySelector(".active-player");
-  return activePlayer;
-}
-
 function getOrientationButton() {
   const orientationButton = document.querySelector(".btn-orientation");
   return orientationButton;
@@ -33,7 +28,7 @@ function getResetButton() {
 export {
   getPlayerGrid,
   getComputerGrid,
-  getActivePlayer,
   getOrientationButton,
   getResetButton,
+  getWinnerName,
 };
