@@ -2,7 +2,6 @@ import { Ship } from "./ship";
 
 class GameBoard {
   board = [];
-  shipSinkCount = 0;
   constructor(rows, columns) {
     this.rows = rows;
     this.columns = columns;
@@ -77,14 +76,6 @@ class GameBoard {
       element.every((e, i) => e === coordinates[i])
     );
     return isShipHit ? selectedShip.getHit() : "Attack Missed";
-  }
-
-  hasAllShipSunk(selectedShip) {
-    if (selectedShip.isShipSunk()) {
-      this.shipSinkCount++;
-    }
-
-    return this.shipSinkCount === 5;
   }
 }
 
