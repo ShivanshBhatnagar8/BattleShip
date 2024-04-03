@@ -60,15 +60,12 @@ const creatingGameUi = (() => {
     playerText.textContent = "PLAYER";
     const computerText = document.createElement("p");
     computerText.textContent = "COMPUTER";
-    const displayTurn = document.createElement("p");
-    displayTurn.classList.add("active-player");
-    displayTurn.textContent = `PLAYER'S TURN`;
-    displayContainer.append(playerText, displayTurn, computerText);
+    displayContainer.append(playerText, computerText);
   };
   const creatingButtonSection = () => {
     const gameGuidelines = document.createElement("p");
     gameGuidelines.textContent =
-      "Place your five available ships on the game board, You can place them horizontally or vertically";
+      "Place your five available ships on the game board to play, You can place them horizontally or vertically";
     const orientationButton = document.createElement("button");
     orientationButton.textContent = "Horizontal";
     orientationButton.classList.add("btn-orientation");
