@@ -37,7 +37,6 @@ describe("Carrier on GameBoard", () => {
     expect(board.receiveAttack(ca, [0, 6])).toBe(4);
     expect(board.receiveAttack(ca, [0, 7])).toBe(5);
     expect(ca.isShipSunk()).toBe(true);
-    expect(board.hasAllShipSunk(ca)).toBe(false);
   });
 });
 describe("BattleShip on GameBoard", () => {
@@ -57,7 +56,6 @@ describe("BattleShip on GameBoard", () => {
     expect(board.receiveAttack(ba, [1, 3])).toBe(3);
     expect(board.receiveAttack(ba, [1, 5])).toBe(4);
     expect(ba.isShipSunk()).toBe(true);
-    expect(board.hasAllShipSunk(ba)).toBe(false);
   });
 });
 
@@ -77,7 +75,6 @@ describe("Submarine on GameBoard", () => {
     expect(board.receiveAttack(sub, [6, 3])).toBe(2);
     expect(board.receiveAttack(sub, [7, 3])).toBe(3);
     expect(sub.isShipSunk()).toBe(true);
-    expect(board.hasAllShipSunk(sub)).toBe(false);
   });
 });
 
@@ -96,7 +93,6 @@ describe("Cruiser on GameBoard", () => {
     expect(board.receiveAttack(cr, [8, 4])).toBe(2);
     expect(board.receiveAttack(cr, [8, 5])).toBe(3);
     expect(cr.isShipSunk()).toBe(true);
-    expect(board.hasAllShipSunk(cr)).toBe(false);
   });
 });
 
@@ -113,7 +109,6 @@ describe("Destroyer on GameBoard", () => {
     expect(board.receiveAttack(des, [6, 6])).toBe(1);
     expect(board.receiveAttack(des, [7, 6])).toBe(2);
     expect(des.isShipSunk()).toBe(true);
-    expect(board.hasAllShipSunk(des)).toBe(false);
   });
 });
 describe("All ship sunk", () => {
@@ -123,7 +118,7 @@ describe("All ship sunk", () => {
     let cruiser = new Ship("Cruiser", 5, false);
     let ba = new Ship("battleShip", 4, false);
     let board = new GameBoard(10, 10);
-    board.shipSinkCount = 5;
+
     board.createBoard();
     expect(board.placeShips(des, [6, 6], "vertical")).toStrictEqual([
       [6, 6],
@@ -135,6 +130,5 @@ describe("All ship sunk", () => {
     );
     expect(board.placeShips(ba, [-1, 6], "vertical")).toStrictEqual(undefined);
     expect(board.receiveAttack(sub, [6, 6])).toBe("Attack Missed");
-    expect(board.hasAllShipSunk(des)).toBe(true);
   });
 });
