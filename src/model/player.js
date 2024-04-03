@@ -45,16 +45,9 @@ class Player {
   }
 
   shipAttack(board, coord) {
-    //debugger;
-    //this.activePlayer = this.type;
     if (Player.activePlayer === this.type) {
-      //this.switchPlayerTurn();
       this.type === "computer"
-        ? //(coord = [
-          //     Math.floor(Math.random() * 8),
-          //     Math.floor(Math.random() * 8),
-          //   ])
-          (coord = this.#generateUniqueCoordinates())
+        ? (coord = this.#generateUniqueCoordinates())
         : coord;
       const [x, y] = coord;
       if (board[x][y] !== null && board[x][y] !== "x") {
